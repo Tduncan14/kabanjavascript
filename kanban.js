@@ -23,6 +23,28 @@ export default class Kanban {
 
     static insertTask(columnId, content){
 
+        // get current data and update the array
+        const data = read()
+        // find the column that you are working on
+        const column = data.find(column => {
+            return column.columnId == columnId
+        })
+
+        // create the task object and give an Id along with the content
+        const task = {
+            taskId:Math.floor(Math.random() * 100000),
+            content:content
+        }
+
+
+        // then you push it the task array
+        column.tasks.push(task)
+        console.log(data,'the data updated')
+        // can overwrite the old data with the new data
+         localStorage.setItem("data",JSON.stringify(data))
+
+         return task
+
     }
 
 
