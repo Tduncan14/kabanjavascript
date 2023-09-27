@@ -36,12 +36,19 @@ export default class Kanban {
             content:content
         }
 
+        // // throw new error if column doeest exit 
+        // if(!column){
+        //      throw new Error('column doesnt exist')
+        // }
+
+        //column doesnt exist
+
 
         // then you push it the task array
         column.tasks.push(task)
         console.log(data,'the data updated')
         // can overwrite the old data with the new data
-         localStorage.setItem("data",JSON.stringify(data))
+          save(data)
 
          return task
 
@@ -53,7 +60,28 @@ export default class Kanban {
     }
 
 
+    // delete taskId
     static deleteTask(taskId){
+        // access to all the data ,get into the column and delete it
+        const data = read()
+
+        
+
+        for(const column of data) {
+              const task = column.tasks.find(item  =>{
+                 return item.taskId == task.taskId
+              })
+
+
+              if(!task){
+                throw new Error('task is already deleted')
+              }
+
+              // splice to remove the id from the position indexOf gives us the index
+              column.tasks.splice(column.tasks.indexOf(task),1)
+        }
+
+         save(data)
 
     }
 
@@ -95,6 +123,7 @@ function read(){
 }
 
 // this contents saves to the localStorage
-function save(){
+function save(data){
+    localStorage.setItem("data",JSON.stringify(data))
 
 }

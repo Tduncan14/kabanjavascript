@@ -6,3 +6,6 @@ console.log(kanban.getTasks(1))
 
 
 console.log(kanban.insertTask(2,'finishing your homework'))
+
+
+console.log(kanban.getTasks(1))
