@@ -55,8 +55,67 @@ export default class Kanban {
     }
 
 
-    static updateTask(taskId,newContent){
+    static updateTask(taskId,updatedInformation){
+        // grab all the information
+        const data = read()
 
+        //find column task
+
+
+
+
+        function findColumnTask(){
+
+            for(const column of data){
+                const task = column.tasks.find(item => {
+                    return item.taskId == taskId
+                });
+
+                if(task){
+                    return [task,column]
+                }
+            }
+        }
+
+
+        const [task,currentColumn] = findColumnTask()
+
+
+
+        
+
+        const targetColumn = data.find(column => {
+            return column.columnId == updatedInformation.columnId
+        });
+
+        //rewrite and update the new content
+        task.content = updatedInformation.content
+        
+        // delete information for the current column
+        currentColumn.tasks.splice(currentColumn.tasks.indexOf(task),1)
+
+        targetColumn.tasks.push(task)
+
+      console.log(task);
+
+             save(data)
+
+
+        // for(const column of data){
+        //     const task = column.tasks.find(item => {
+        //         return item.taskId == taskId;
+        //     })
+
+        //     if(task){
+        //     console.log(column,task)
+        //     }
+
+        // }
+
+
+
+
+        
     }
 
 
