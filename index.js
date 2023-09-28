@@ -1,18 +1,68 @@
 import kanban from "./kanban.js";
 
+// const taskbox = document.querySelectorAll('.task')
 
-console.log(kanban.getAllTask(),'hello')
-// console.log(kanban.getTasks(1))
+const todo = document.querySelector(".cards.todo")
+const pending = document.querySelector('.cards.pending')
+const completed = document.querySelector('.cards.completed')
 
-
-// console.log(kanban.insertTask(2,'finishing your homework'))
-
-
-// console.log(kanban.getTasks(1))
+const taskbox = [todo,pending,completed]
 
 
+function addTaskCard(task,index){
 
-kanban.updateTask(97522, {columnId:1,content:"Look through javscript review"})
+    console.log(task,'this is task')
+
+    const element = document.createElement("form")
+    element.className="card"
+    element.draggable = true;
+    element.dataset.id = task.taskId
+    element.innerHTML = `
+    <input value = ${task.content} type="text"   name="task"  autocomplete="off" disabled="disabled">
+    <div>
+      <span class="task-id"}>${task.taskId}</span>
+      <span>
+         <button class="bi bi-pencil edit" data-id=${task.taskId}> </button>
+         <button class="bi bi-check-lg update hide" data-id=${task.taskId}> </button>
+         <button class="bi bi-trash3 delete" data-id=${task.taskId}> </button>
+       </span>
+       </div>
+    `
 
 
-console.log(kanban.getAllTask(),'hello 2')
+    taskbox[index].appendChild(element)
+
+
+
+}
+
+
+kanban.getAllTasks().forEach((tasks,index) => {
+
+
+    console.log('task',tasks)
+    tasks.forEach(task => {
+
+        addTaskCard(task,index)
+
+
+
+
+    })
+});
+
+
+const addForm = document.querySelectorAll(".add")
+
+
+addForm.forEach(form => {
+
+    form.addEventListener("submit", event => {
+         event.preventDefault()
+
+         const task = kanban.insertTask(form.submit.dataset.id, form.task.value);
+         addTaskCard(task,form.submit.dataset.id)
+         form.reset()
+    })
+})
+

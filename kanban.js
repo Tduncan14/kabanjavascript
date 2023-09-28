@@ -1,4 +1,4 @@
-export default class Kanban {
+export default class kanban {
 
     static getTasks(columnId){
 
@@ -50,6 +50,7 @@ export default class Kanban {
         // can overwrite the old data with the new data
           save(data)
 
+      
          return task
 
     }
@@ -141,13 +142,16 @@ export default class Kanban {
         }
 
          save(data)
+      
 
     }
 
-    static getAllTask(){ 
+    static getAllTasks(){ 
         // returning the data
          const data = read()
+       
          return [data[0].tasks, data[1].tasks, data[2].tasks]
+         
 
 
 
@@ -184,5 +188,46 @@ function read(){
 // this contents saves to the localStorage
 function save(data){
     localStorage.setItem("data",JSON.stringify(data))
+    columnCount()
 
 }
+
+
+function columnCount(){
+      const data = read()
+
+      const todo = document.querySelector("span.todo")
+      todo.textContent = data[0].tasks.length;
+
+      const pending = document.querySelector("span.pending")
+      pending.textContent = data[1].tasks.length;
+
+      const completed = document.querySelector("complete pending")
+      completed.textContent = data[2].tasks.length;
+
+
+
+}
+
+
+
+
+
+
+
+
+// console.log(kanban.getAllTask(),'hello')
+// // console.log(kanban.getTasks(1))
+
+
+//  console.log(kanban.insertTask(2,'finishing your homework'))
+
+
+// // console.log(kanban.getTasks(1))
+
+
+
+// kanban.updateTask(97522, {columnId:1,content:"Look through javscript review"})
+
+
+// console.log(kanban.getAllTask(),'hello 2')
