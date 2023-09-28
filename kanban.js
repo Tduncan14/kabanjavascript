@@ -1,3 +1,6 @@
+
+
+
 export default class kanban {
 
     static getTasks(columnId){
@@ -23,6 +26,7 @@ export default class kanban {
 
     static insertTask(columnId, content){
 
+        console.log('hellooooo',content)
         // get current data and update the array
         const data = read()
         // find the column that you are working on
@@ -148,9 +152,9 @@ export default class kanban {
 
     static getAllTasks(){ 
         // returning the data
-         const data = read()
-       
-         return [data[0].tasks, data[1].tasks, data[2].tasks]
+        const data = read();
+        columnCount();
+        return [data[0].tasks, data[1].tasks, data[2].tasks];
          
 
 
@@ -170,6 +174,7 @@ function read(){
 
 
     if(!data){
+        console.log('hello')
          return [
             {columnId:0,tasks:[]},
             {columnId:1
@@ -194,20 +199,19 @@ function save(data){
 
 
 function columnCount(){
-      const data = read()
+    const data = read();
 
-      const todo = document.querySelector("span.todo")
-      todo.textContent = data[0].tasks.length;
+    const todo = document.querySelector("span.todo");
+    todo.textContent = data[0].tasks.length;
 
-      const pending = document.querySelector("span.pending")
-      pending.textContent = data[1].tasks.length;
+    const pending = document.querySelector("span.pending");
+    pending.textContent = data[1].tasks.length;
 
-      const completed = document.querySelector("complete pending")
-      completed.textContent = data[2].tasks.length;
-
-
-
+    const completed = document.querySelector("span.completed");
+    completed.textContent = data[2].tasks.length;
 }
+
+
 
 
 

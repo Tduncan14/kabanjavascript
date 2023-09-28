@@ -37,10 +37,12 @@ function addTaskCard(task,index){
 }
 
 
+
+
+
 kanban.getAllTasks().forEach((tasks,index) => {
 
 
-    console.log('task',tasks)
     tasks.forEach(task => {
 
         addTaskCard(task,index)
@@ -54,15 +56,25 @@ kanban.getAllTasks().forEach((tasks,index) => {
 
 const addForm = document.querySelectorAll(".add")
 
-
 addForm.forEach(form => {
-
     form.addEventListener("submit", event => {
-         event.preventDefault()
+        console.log(form.task.value,'value')
+        event.preventDefault();
 
-         const task = kanban.insertTask(form.submit.dataset.id, form.task.value);
-         addTaskCard(task,form.submit.dataset.id)
-         form.reset()
-    })
-})
+        if(form.task.value){
+            const task = kanban.insertTask(form.submit.dataset.id, form.task.value.trim());
+            addTaskCard(task, form.submit.dataset.id);
+            form.reset();
+        }        
+    });
+});
 
+
+
+taskbox.forEach(column =>
+      column.addEventListener("click", event => {
+           event.preventDefault()
+
+
+
+      }))
