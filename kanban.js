@@ -133,16 +133,17 @@ export default class kanban {
 
         for(const column of data) {
               const task = column.tasks.find(item  =>{
-                 return item.taskId == task.taskId
+                 return item.taskId == taskId
               })
 
 
-              if(!task){
-                throw new Error('task is already deleted')
-              }
+            //   if(!task){
+            //     throw new Error('task is already deleted')
+            //   }
 
+              
               // splice to remove the id from the position indexOf gives us the index
-              column.tasks.splice(column.tasks.indexOf(task),1)
+           if(task){column.tasks.splice(column.tasks.indexOf(task),1)}
         }
 
          save(data)
